@@ -35,13 +35,19 @@ Game.prototype.updateCurrentPlayerMoves=function(move){
 // ---------------------------------------------
 
 let game=new Game();
-let updateDisplay=function(text) {
+
+const reloadGame=function(){
+  window.location.reload();
+}
+
+const updateDisplay=function(text) {
   let display=document.getElementById('display');
   display.innerText=text;
 }
 let action={};
 action.Won=function(){
   updateDisplay(`${game.getCurrentPlayerInfo().name}`+" has won");
+  toggleResetDisabled();
 };
 
 action.isOn=function() {
@@ -133,6 +139,14 @@ const addGridToPage=function() {
     cell.id=id;
   }
 };
+const toggleResetDisabled=function() {
+  let reset=document.getElementById('reset');
+  reset.disabled=!reset.disabled;
+};
+const addClickListenerToButton=function() {
+  let reset=document.getElementById('reset');
+  reset.onclick=reloadGame;
+}
 
 const addClickEventToGrid=function(){
   let table=document.getElementById("mainGrid");
@@ -140,6 +154,8 @@ const addClickEventToGrid=function(){
 };
 
 const startGame=function() {
+  addClickListenerToButton();
+  toggleResetDisabled();
   updateDisplay(getCurrentPlayer()+"'s Turn");
   addGridToPage();
   addClickEventToGrid();

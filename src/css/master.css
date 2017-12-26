@@ -1,0 +1,55 @@
+table {
+  border-collapse: collapse;
+}
+
+button {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  background-color: rgb(255, 171, 8);
+  padding: 2px;
+  margin-top: 20px 0px 0px 0px;
+  font-family: sans-serif;
+  font-size: 27px;
+  font-weight: lighter;
+  width: 270px;
+  height: 70px;
+  border-radius: 5px;
+  border: 0px;
+  box-shadow: 0px 0px 0px;
+}
+button:hover{
+  background-color: rgb(246, 236, 0);
+}
+td {
+  border-collapse: collapse;
+  height: 70px;
+  width: 70px;
+  border: 2px solid black;
+}
+
+img {
+  width: 68px;
+  height: 68px;
+}
+
+.gridDiv {
+  display: inline-block;
+  text-align: center;
+  margin: 30px;
+  padding: 60px;
+  border-radius: 10px;
+  border-top: 6px solid #f14d49;
+  border-bottom: 6px solid #f14d49;
+  background-color: white;
+  box-shadow: inset 1px 1px 30px darkGray, inset 1px 1px 30px lightGray;
+}
+
+body {
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+h1{
+  font-family: cursive;
+  font-size: 100px;
+}
