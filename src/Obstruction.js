@@ -1,12 +1,15 @@
-let Player=function(name,symbol) {
-  this.name=name;
+let Player=function(symbol) {
+  this.name="";
   this.symbol=symbol;
   this.moves=[];
 };
+Player.prototype.setName=function(name) {
+  this.name=name;
+};
 let Game=function() {
   this.players=[];
-  this.players.push(new Player("player1","images/x.jpg"));
-  this.players.push(new Player("player2","images/o.jpg"));
+  this.players.push(new Player("images/x.jpg"));
+  this.players.push(new Player("images/o.jpg"));
   this.currentPlayerIndex=0;
 };
 
@@ -22,6 +25,11 @@ Game.prototype.getTotalMoves = function () {
 Game.prototype.updateCurrentPlayerMoves=function(move){
     this.getCurrentPlayerInfo().moves.push(move);
 };
+Game.prototype.setPlayersName=function(names) {
+  names.forEach((name,index)=>{
+    this.players[index].setName(name);
+  });
+}
 // ---------------------------------------------
 // ---------------------------------------------
 // ---------------------------------------------
@@ -46,13 +54,14 @@ const updateDisplay=function(text) {
 }
 let action={};
 action.Won=function(){
-  updateDisplay(`${game.getCurrentPlayerInfo().name}`+" has won");
-  toggleResetDisabled();
+  updateDisplay(`${game.getCurrentPlayerInfo().name} has won`);
+  let reset=document.getElementById('reset');
+  toggleButtonDisabled(reset);
 };
 
 action.isOn=function() {
   game.currentPlayerIndex=1-game.currentPlayerIndex;
-  updateDisplay(getCurrentPlayer()+"'s Turn");
+  updateDisplay(`${getCurrentPlayer()}'s Turn`);
 };
 
 const getGameStatus=function(){
@@ -103,7 +112,29 @@ const clearSides=function(position){
     clearCell(element);
   });
 };
-
+const enableDetailsBlock=function() {
+  document.getElementById('player1').disabled=false;
+  document.getElementById('player2').disabled=false;
+  document.getElementById('submit').disabled=false;
+};
+const disableDetailsBlock=function() {
+  document.getElementById('player1').disabled=true;
+  document.getElementById('player2').disabled=true;
+  document.getElementById('submit').disabled=true;
+};
+const takeDetails=function() {
+  let player1Name=document.getElementById('player1').value;
+  let player2Name=document.getElementById('player2').value;
+  if(player1Name==''||player2Name==''){
+    alert('ENTER DETAILS');
+    return;
+  }
+  game.setPlayersName([player1Name,player2Name]);
+  let currentPlayer = game.getCurrentPlayerInfo();
+  updateDisplay(`${currentPlayer.name}` + "'s Turn");
+  disableDetailsBlock();
+  addClickEventToGrid();
+};
 const updateCells=function(position) {
   let cell=document.getElementById(position);
   let currentPlayer=game.getCurrentPlayerInfo();
@@ -139,13 +170,16 @@ const addGridToPage=function() {
     cell.id=id;
   }
 };
-const toggleResetDisabled=function() {
-  let reset=document.getElementById('reset');
-  reset.disabled=!reset.disabled;
+const toggleButtonDisabled=function(button) {
+  button.disabled=!button.disabled;
 };
 const addClickListenerToButton=function() {
   let reset=document.getElementById('reset');
   reset.onclick=reloadGame;
+  toggleButtonDisabled(reset);
+  let submit=document.getElementById('submit');
+  submit.onclick=takeDetails;
+  toggleButtonDisabled(submit);
 }
 
 const addClickEventToGrid=function(){
@@ -155,9 +189,8 @@ const addClickEventToGrid=function(){
 
 const startGame=function() {
   addClickListenerToButton();
-  toggleResetDisabled();
-  updateDisplay(getCurrentPlayer()+"'s Turn");
+  enableDetailsBlock();
+  updateDisplay(`${getCurrentPlayer()}'s Turn`);
   addGridToPage();
-  addClickEventToGrid();
 }
 window.onload=startGame;
