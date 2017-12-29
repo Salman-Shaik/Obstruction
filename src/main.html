@@ -10,12 +10,29 @@
 </head>
 
 <body align="center">
-  <div class="gridDiv">
-    <table id="mainGrid">
-    </table>
-    <h2 id="display"></h2>
-    <button type="reset" id="reset">RESET</button>
-  </div>
+  <table >
+    <tr>
+      <td class="mainPage">
+        <div class="details">
+            <h2>Enter Details</h2>
+            <label for="player1">Player1's Name:</label>
+            <input type="text" name="player1" id="player1" value=""><br />
+            <label for="player2">Player2's Name:</label>
+            <input type="text" name="player2" id="player2" value=""><br />
+            <button type="submit" name="submit" id="submit" >SUBMIT</button>
+        </div>
+      </td>
+      <td class="mainPage">
+        <div class="gridDiv">
+          <table id="mainGrid">
+          </table>
+          <h2 id="display"></h2>
+          <button type="reset" id="reset">RESET</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+
 </body>
 
 </html>
